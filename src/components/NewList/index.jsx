@@ -71,7 +71,7 @@ const NewListCreation = () => {
 
       <div className="flex flex-wrap md:flex-nowrap justify-center space-x-0 md:space-x-6 space-y-6 md:space-y-0">
         {/* First Selected List */}
-        <div className="w-1/3 bg-sky-50 p-4 rounded-lg shadow-md">
+        <div className="w-1/3 bg-sky-50 p-4 rounded-lg shadow-md h-[600px] overflow-y-scroll">
           <h3 className="text-lg font-semibold mb-2">
             {`List ${selectedLists[0]} (${firstListItems.length})`}
           </h3>
@@ -94,7 +94,7 @@ const NewListCreation = () => {
         </div>
 
         {/* New List (Middle) */}
-        <div className="w-1/3 bg-sky-50 p-4 rounded-lg shadow-md">
+        <div className="w-1/3 bg-sky-50 p-4 rounded-lg shadow-md h-[600px] overflow-y-scroll">
           <h3 className="text-lg font-semibold mb-2 text-center">{`List ${newListId} (${newList.length})`}</h3>
           {newList.map((item) => (
             <div
@@ -120,7 +120,7 @@ const NewListCreation = () => {
         </div>
 
         {/* Second Selected List */}
-        <div className="w-1/3 bg-sky-50 p-4 rounded-lg shadow-md">
+        <div className="w-1/3 bg-sky-50 p-4 rounded-lg shadow-md h-[600px] overflow-y-scroll">
           <h3 className="text-lg font-semibold mb-2">
             {`List ${selectedLists[1]} (${secondListItems.length})`}
           </h3>
