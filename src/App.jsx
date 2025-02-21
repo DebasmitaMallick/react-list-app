@@ -15,10 +15,7 @@ function App() {
       path: "newlist",
       element: <NewListCreation />,
     },
-  ], 
-  // {
-  //   basename: "/react-list-app/"  // ✅ Set the base path to match GitHub Pages deployment
-  // }
+  ]
 );
 
   return (

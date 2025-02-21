@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateLists, cancelListCreation } from "../../redux/listSlice";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ListContainer from "./ListContainer";
 
 const NewListCreation = () => {
   const { selectedLists, listData } = useSelector((state) => state.list);
@@ -68,92 +69,47 @@ const NewListCreation = () => {
 
   return (
     <div className="max-w-4xl mx-auto p-6 mt-6">
-
       <div className="flex flex-wrap md:flex-nowrap justify-center space-x-0 md:space-x-6 space-y-6 md:space-y-0">
         {/* First Selected List */}
-        <div className="w-1/3 bg-sky-50 p-4 rounded-lg shadow-md h-[600px] overflow-y-scroll">
-          <h3 className="text-lg font-semibold mb-2">
-            {`List ${selectedLists[0]} (${firstListItems.length})`}
-          </h3>
-          {firstListItems.map((item) => (
-            <div
-              key={item.id}
-              className="flex justify-between items-center bg-white p-5 my-3 rounded-xl border-2 border-stone-300"
-            >
-              <div>
-                <h2 className="font-semibold text-stone-800">{item.name}</h2>
-                <p className="text-stone-500">{item.description}</p>
-              </div>
-              <button
-                onClick={() => moveItem(item, selectedLists[0], "newList")}
-              >
-                ➡
-              </button>
-            </div>
-          ))}
-        </div>
+        <ListContainer
+          listType={"1"}
+          listNum={selectedLists[0]}
+          listItems={firstListItems}
+          onMove={moveItem}
+          moveRightParams={[selectedLists[0], "newList"]}
+        />
 
         {/* New List (Middle) */}
-        <div className="w-1/3 bg-sky-50 p-4 rounded-lg shadow-md h-[600px] overflow-y-scroll">
-          <h3 className="text-lg font-semibold mb-2 text-center">{`List ${newListId} (${newList.length})`}</h3>
-          {newList.map((item) => (
-            <div
-              key={item.id}
-              className="flex justify-between items-center bg-white p-5 my-3 rounded-xl border-2 border-stone-300"
-            >
-              <button
-                onClick={() => moveItem(item, "newList", selectedLists[0])}
-              >
-                ⬅
-              </button>
-              <div>
-                <h2 className="font-semibold text-stone-800">{item.name}</h2>
-                <p className="text-stone-500">{item.description}</p>
-              </div>
-              <button
-                onClick={() => moveItem(item, "newList", selectedLists[1])}
-              >
-                ➡
-              </button>
-            </div>
-          ))}
-        </div>
+        <ListContainer
+          listType={"new"}
+          listNum={newListId}
+          listItems={newList}
+          onMove={moveItem}
+          moveLeftParams={["newList", selectedLists[0]]}
+          moveRightParams={["newList", selectedLists[1]]}
+        />
 
         {/* Second Selected List */}
-        <div className="w-1/3 bg-sky-50 p-4 rounded-lg shadow-md h-[600px] overflow-y-scroll">
-          <h3 className="text-lg font-semibold mb-2">
-            {`List ${selectedLists[1]} (${secondListItems.length})`}
-          </h3>
-          {secondListItems.map((item) => (
-            <div
-              key={item.id}
-              className="flex justify-between items-center bg-white p-5 my-3 rounded-xl border-2 border-stone-300"
-            >
-              <button
-                onClick={() => moveItem(item, selectedLists[1], "newList")}
-              >
-                ⬅
-              </button>
-              <div>
-                <h2 className="font-semibold text-stone-800">{item.name}</h2>
-                <p className="text-stone-500">{item.description}</p>
-              </div>
-            </div>
-          ))}
-        </div>
+        <ListContainer
+          listType={"2"}
+          listNum={selectedLists[1]}
+          listItems={secondListItems}
+          onMove={moveItem}
+          moveLeftParams={[selectedLists[1], "newList"]}
+        />
       </div>
 
       {/* Action Buttons */}
       <div className="flex flex-col md:flex-row justify-center space-y-3 md:space-x-4 md:space-y-0 mt-6">
         <button
           onClick={handleCancel}
-          className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
+          className="text-stone-900 font-medium px-4 py-2 border-2 border-stone-700 rounded cursor-pointer"
         >
           Cancel
         </button>
         <button
           onClick={handleUpdateLists}
-          className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+          className="bg-blue-500 font-medium text-white px-4 py-2 rounded cursor-pointer"
         >
           Update
         </button>
