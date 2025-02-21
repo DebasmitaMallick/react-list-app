@@ -1,9 +1,9 @@
-// eslint-disable-next-line react/prop-types
 const ItemBox = ({ data }) => {
-  console.log("itemBox", data);
   return (
-    // eslint-disable-next-line react/prop-types
-    <div>hello{data["name"]}</div>
+    <li className="bg-white p-5 my-3 rounded-xl border-2 border-stone-300">
+      <h2 className="font-semibold text-stone-800">{data.name}</h2>
+      <p className="text-stone-500">{data.description}</p>
+    </li>
   );
 };
 

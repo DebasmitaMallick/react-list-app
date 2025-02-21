@@ -1,6 +1,12 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import ListItem from "./ListItem";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchListData } from "../../redux/listSlice";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import ErrorPage from "../ErrorPage";
+import CustomBtn from "../CustomBtn";
+import CustomSpinner from "../CustomSpinner";
 
 // {
 //   "list_number": 1,
@@ -9,58 +15,51 @@ import ListItem from "./ListItem";
 //   "description": "Felis silvestris lybica"
 // }
 const Lists = () => {
-  const [listData, setListData] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState({ message: null });
+  const dispatch = useDispatch();
+  const { listData, loading, error, selectedLists } = useSelector(
+    (state) => state.list
+  );
 
-  const fetchList = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.get(
-        "https://apis.ccbp.in/list-creation/lists"
-      );
-      if (response && response.data && response.data.lists) {
-        const listData = response.data.lists;
-        // console.log(listData);
-        let listObj = {};
-        listData.forEach((el) => {
-          let lstNum = el.list_number;
-          let objData = {
-            ...el,
-          };
-          delete objData.list_number;
-          // listObj[lstNum] = [
-          //   ...listObj[lstNum],
-          //   objData
-          // ]
-          listObj[lstNum] = [
-            ...(listObj[lstNum] || []), // Safely initialize the array if undefined
-            objData,
-          ];
-        });
-        console.log(listObj);
-        setListData(listObj);
-      } else {
-        throw new Error("Failed to fetch data");
-      }
-    } catch (err) {
-      setError({ message: err });
+  const navigate = useNavigate();
+
+  const handleNewList = () => {
+    if (selectedLists.length !== 2) {
+      toast.error("You should select exactly 2 lists to create a new list");
+    } else {
+      navigate("newlist");
     }
-    setLoading(false);
   };
 
+  const handleFetchData = useCallback(() => {
+    if (!listData) {
+      dispatch(fetchListData());
+    }
+  }, [dispatch, listData])
+
   useEffect(() => {
-    fetchList();
-  }, []);
+    handleFetchData()
+  }, [handleFetchData]);
+
   return (
     <div>
-      <button>Create new list</button>
-      {loading && <h1>Loading data...</h1>}
-      {error.message && <h1>{error.message}</h1>}
-      {listData &&
-        Object.entries(listData).map(([key, value]) => (
-          <ListItem key={key} data={value} />
-        ))}
+      {/* {loading && <h1>Loading data...</h1>} */}
+      <CustomSpinner open={loading} />
+      {error && <ErrorPage onTry={handleFetchData} />}
+      {!loading && !error && listData && (
+        <div className="p-6">
+          <div className="text-center pb-16">
+            <h1 className="text-4xl font-bold text-stone-700 pb-7">
+              List Creation
+            </h1>
+            <CustomBtn onClick={handleNewList}>Create a new list</CustomBtn>
+          </div>
+          <div className="flex flex-wrap md:flex-nowrap gap-3.5">
+            {Object.entries(listData).map(([key, value]) => (
+              <ListItem key={key} data={value} listNum={key} />
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

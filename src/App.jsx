@@ -1,14 +1,28 @@
-import './App.css'
-import Lists from './components/Lists'
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import "./App.css";
+import Lists from "./components/Lists/index.jsx";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import NewListCreation from "./components/NewList/index.jsx";
 
 function App() {
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Lists />,
+    },
+    {
+      path: "newlist",
+      element: <NewListCreation />,
+    },
+  ]);
 
   return (
-    <div className=''>
-      <h1 className='text-3xl'>List Creation</h1>
-      <Lists />
+    <div>
+      <RouterProvider router={router} />
+      <ToastContainer position="top-center" autoClose={2000} />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
