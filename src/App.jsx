@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import NewListCreation from "./components/NewList/index.jsx";
 
 function App() {
-  const router = createHashRouter([  // ✅ Change from createBrowserRouter to createHashRouter
+  const router = createHashRouter([
     {
       path: "/",
       element: <Lists />,
@@ -15,7 +15,9 @@ function App() {
       path: "newlist",
       element: <NewListCreation />,
     },
-  ]);
+  ], {
+    basename: "/react-list-app"  // ✅ Set the base path to match GitHub Pages deployment
+  });
 
   return (
     <div>
