@@ -1,4 +1,5 @@
 {
+  "homepage": "http://DebasmitaMallick.github.io/react-list-app",
   "name": "list-app",
   "private": true,
   "version": "0.0.0",
@@ -11,7 +12,6 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "homepage": "https://DebasmitaMallick.github.io/react-list-app",
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
