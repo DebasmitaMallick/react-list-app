@@ -62,11 +62,10 @@ const listSlice = createSlice({
 
       // Add new list if it has items
       if (newList.length > 0) {
-        const newListNumber = newListId; // Generate a unique list ID
+        const newListNumber = newListId;
         state.listData[newListNumber] = newList;
       }
-      // state.listData[action.payload.fi] = action.payload.listItems
-      // state.listData[action.payload.listNum] = action.payload.listItems
+
       state.selectedLists = [];
     }
   },

@@ -8,12 +8,6 @@ import ErrorPage from "../ErrorPage";
 import CustomBtn from "../CustomBtn";
 import CustomSpinner from "../CustomSpinner";
 
-// {
-//   "list_number": 1,
-//   "id": "02b72a7c-a683-11ec-b909-0242ac120002",
-//   "name": "Cat, european wild",
-//   "description": "Felis silvestris lybica"
-// }
 const Lists = () => {
   const dispatch = useDispatch();
   const { listData, loading, error, selectedLists } = useSelector(
@@ -34,15 +28,14 @@ const Lists = () => {
     if (!listData) {
       dispatch(fetchListData());
     }
-  }, [dispatch, listData])
+  }, [dispatch, listData]);
 
   useEffect(() => {
-    handleFetchData()
+    handleFetchData();
   }, [handleFetchData]);
 
   return (
     <div>
-      {/* {loading && <h1>Loading data...</h1>} */}
       <CustomSpinner open={loading} />
       {error && <ErrorPage onTry={handleFetchData} />}
       {!loading && !error && listData && (

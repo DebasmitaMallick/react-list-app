@@ -7,19 +7,19 @@ const ListContainer = ({ listItems, listType, listNum, moveLeftParams, moveRight
       {listItems.map((item) => (
         <div
           key={item.id}
-          className=" bg-white h-[130px] p-5 my-3 rounded-xl border-2 border-stone-300"
+          className=" bg-white h-[130px] p-5 my-3 rounded-xl border-2 border-stone-300 relative"
         >
           <div className="pb-5">
             <h2 className="font-semibold text-stone-800">{item.name}</h2>
             <p className="text-stone-500">{item.description}</p>
           </div>
           {(listType === "2" || listType === "new") && (
-            <button onClick={() => onMove(item, ...moveLeftParams)} className="text-2xl float-left text-stone-600">
+            <button onClick={() => onMove(item, ...moveLeftParams)} className="text-2xl absolute left-5 bottom-3 text-stone-600 cursor-pointer">
               <GoArrowLeft />
             </button>
           )}
           {(listType === "1" || listType === "new") && (
-            <button onClick={() => onMove(item, ...moveRightParams)} className="text-2xl float-right  text-stone-600">
+            <button onClick={() => onMove(item, ...moveRightParams)} className="text-2xl absolute right-5 bottom-3 text-stone-600 cursor-pointer">
               <GoArrowRight />
             </button>
           )}
