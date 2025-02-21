@@ -5,4 +5,5 @@ export default defineConfig({
   plugins: [
     tailwindcss(), react()
   ],
+  base: "/react-list-app/",
 })
